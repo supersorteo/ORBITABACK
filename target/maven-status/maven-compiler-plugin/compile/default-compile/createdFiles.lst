@@ -1,0 +1,11 @@
+com\example\orbita\services\ContactService.class
+com\example\orbita\entity\Lead.class
+com\example\orbita\configurations\CorsConfig.class
+com\example\orbita\OrbitaApplication.class
+com\example\orbita\configurations\CorsConfig$1.class
+com\example\orbita\controller\ContactController.class
+com\example\orbita\repository\LeadRepository.class
+com\example\orbita\entity\Contact.class
+com\example\orbita\controller\LeadController.class
+com\example\orbita\services\LeadService.class
+com\example\orbita\repository\ContactRepository.class

@@ -1,0 +1,10 @@
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\configurations\CorsConfig.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\controller\ContactController.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\controller\LeadController.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\entity\Contact.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\entity\Lead.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\OrbitaApplication.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\repository\ContactRepository.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\repository\LeadRepository.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\services\ContactService.java
+D:\DANILO\orbita\orbita\src\main\java\com\example\orbita\services\LeadService.java
