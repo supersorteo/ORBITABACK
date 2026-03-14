@@ -1,4 +1,4 @@
-FROM eclipse-temurin:23-jdk
+FROM eclipse-temurin:21-jdk
 
 # Crear directorio para uploads
 #RUN mkdir -p /app/uploads
