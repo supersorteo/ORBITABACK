@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "cors.allowed-origins",
+      "type": "java.lang.String[]",
+      "description": "Lista de orígenes CORS permitidos, separados por coma. Ej: https://orbita.software,https://orbita-software.web.app"
+    }
+  ]
+}

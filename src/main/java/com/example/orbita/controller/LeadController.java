@@ -1,45 +1,43 @@
 package com.example.orbita.controller;
 
-
 import com.example.orbita.entity.Lead;
 import com.example.orbita.services.LeadService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/leads")
+@RequiredArgsConstructor
 public class LeadController {
 
-    @Autowired
-    private LeadService leadService;
+    private final LeadService leadService;
 
     @PostMapping
-    public ResponseEntity<Lead> createLead(@RequestBody Lead lead) {
+    public ResponseEntity<Lead> createLead(@Valid @RequestBody Lead lead) {
         Lead savedLead = leadService.saveLead(lead);
-        return ResponseEntity.ok(savedLead);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedLead);
     }
 
     @GetMapping
     public ResponseEntity<List<Lead>> getAllLeads() {
-        List<Lead> leads = leadService.getAllLeads();
-        return ResponseEntity.ok(leads);
+        return ResponseEntity.ok(leadService.getAllLeads());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Lead> getLeadById(@PathVariable Long id) {
-        Optional<Lead> lead = leadService.getLeadById(id);
-        return lead.map(ResponseEntity::ok)
+        return leadService.getLeadById(id)
+                .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Lead> updateLead(@PathVariable Long id, @RequestBody Lead leadDetails) {
-        Lead updatedLead = leadService.updateLead(id, leadDetails);
-        return ResponseEntity.ok(updatedLead);
+    public ResponseEntity<Lead> updateLead(@PathVariable Long id, @Valid @RequestBody Lead leadDetails) {
+        return ResponseEntity.ok(leadService.updateLead(id, leadDetails));
     }
 
     @DeleteMapping("/{id}")

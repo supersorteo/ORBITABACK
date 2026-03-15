@@ -2,43 +2,42 @@ package com.example.orbita.controller;
 
 import com.example.orbita.entity.Contact;
 import com.example.orbita.services.ContactService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/contacts")
+@RequiredArgsConstructor
 public class ContactController {
 
-    @Autowired
-    private ContactService contactService;
+    private final ContactService contactService;
 
     @PostMapping
-    public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
+    public ResponseEntity<Contact> createContact(@Valid @RequestBody Contact contact) {
         Contact savedContact = contactService.saveContact(contact);
-        return ResponseEntity.ok(savedContact);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedContact);
     }
 
     @GetMapping
     public ResponseEntity<List<Contact>> getAllContacts() {
-        List<Contact> contacts = contactService.getAllContacts();
-        return ResponseEntity.ok(contacts);
+        return ResponseEntity.ok(contactService.getAllContacts());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Contact> getContactById(@PathVariable Long id) {
-        Optional<Contact> contact = contactService.getContactById(id);
-        return contact.map(ResponseEntity::ok)
+        return contactService.getContactById(id)
+                .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Contact> updateContact(@PathVariable Long id, @RequestBody Contact contactDetails) {
-        Contact updatedContact = contactService.updateContact(id, contactDetails);
-        return ResponseEntity.ok(updatedContact);
+    public ResponseEntity<Contact> updateContact(@PathVariable Long id, @Valid @RequestBody Contact contactDetails) {
+        return ResponseEntity.ok(contactService.updateContact(id, contactDetails));
     }
 
     @DeleteMapping("/{id}")
