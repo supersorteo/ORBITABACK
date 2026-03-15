@@ -1,14 +1,19 @@
-FROM eclipse-temurin:21-jdk
+FROM maven:3.9.9-eclipse-temurin-21 AS build
+WORKDIR /app
 
-# Crear directorio para uploads
-#RUN mkdir -p /app/uploads
-#RUN chmod -R 777 /app/uploads
+COPY pom.xml ./
+COPY .mvn .mvn
+COPY mvnw mvnw
+COPY mvnw.cmd mvnw.cmd
+COPY src src
 
-# Copiar el JAR compilado localmente
-COPY target/orbita-0.0.1-SNAPSHOT.jar java-app.jar
+RUN mvn -B -DskipTests package
 
-# Exponer el puerto 8080
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+
+COPY --from=build /app/target/orbita-0.0.1-SNAPSHOT.jar java-app.jar
+
 EXPOSE 8080
 
-# Configurar el comando de entrada para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "java-app.jar", "--spring.profiles.active=prod"]
