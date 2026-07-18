@@ -33,7 +33,8 @@ public class Lead {
     private String mensaje;
 
     @NotBlank(message = "El contacto es obligatorio")
-    @Size(max = 150, message = "El contacto no puede superar los 150 caracteres")
+    @Column(length = 500)
+    @Size(max = 500, message = "El contacto no puede superar los 500 caracteres")
     private String contacto;
 
     @Min(value = 1, message = "Los hits deben ser al menos 1")
